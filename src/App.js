@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Home from "./pages/Home"
+import Login from "./pages/Login";
+import RegistrationForm from "./pages/RegistrationForm";
+import AddNewProject from "./pages/AddNewProject";
+import LeftSideBar from "./components/LeftSideBar";
+import AllProjects from "./pages/AllProjects";
+import About from "./pages/About";
+import Contacts from "./pages/Contacts";
+
+
+class App extends Component {
+  render() {
+    const token = localStorage.getItem("token")
+    return (
+      <BrowserRouter>
+        {token?<LeftSideBar/>:null}
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/login" exact component={Login}/>
+          <Route path="/sign-up" component={RegistrationForm}/>
+          <Route path="/add-new-project/:id" component={AddNewProject}/>
+          <Route path="/add-new-project" component={AddNewProject}/>
+          <Route path="/all-projects" component={AllProjects}/>
+          <Route path="/about" component={About}/>
+          <Route path="/contacts" component={Contacts}/>
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App;
