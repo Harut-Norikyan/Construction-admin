@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addAbout, getAbout, updateAbout} from "../store/actions/about";
 import {NotificationContainer, NotificationManager} from "react-notifications";
-import {Redirect} from "react-router-dom";
 import {addContact, getContact, updateContact} from "../store/actions/contacts";
 
 class Contacts extends Component {
@@ -11,6 +9,7 @@ class Contacts extends Component {
   state = {
     phone: '',
     address: '',
+    email :'',
   }
 
   async componentDidMount() {
@@ -39,7 +38,7 @@ class Contacts extends Component {
 
   handleSubmit = async (ev) => {
     ev.preventDefault()
-    let {phone, address} = this.state
+    let {phone, address,email} = this.state
     let {contact} = this.props
     if (contact) {
       if (phone !== contact.phone && phone !== "") {
@@ -60,10 +59,20 @@ class Contacts extends Component {
           address: contact.address
         })
       }
+      if (email !== contact.email && email !== "") {
+        await this.setState({
+          email
+        })
+      } else {
+        await this.setState({
+          email: contact.email
+        })
+      }
       await this.setState({
         data: {
           phone: this.state.phone,
           address: this.state.address,
+          email:this.state.email
         }
       })
       this.props.updateContact(contact.id, this.state.data)
@@ -72,6 +81,7 @@ class Contacts extends Component {
         data: {
           phone,
           address,
+          email
         }
       })
       this.props.addContact(this.state.data)
@@ -127,6 +137,18 @@ class Contacts extends Component {
               defaultValue={contact ? contact.address : ""}
               name="address"
               placeholder="Address"
+              onChange={this.handleChange}
+            />
+            <br/>
+            <label htmlFor="firstName">Address</label>
+          </p>
+          <p>
+            <input
+              id="email"
+              type="email"
+              defaultValue={contact ? contact.email : ""}
+              name="email"
+              placeholder="Email"
               onChange={this.handleChange}
             />
             <br/>

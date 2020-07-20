@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
-import {Field, Form, reduxForm, SubmissionError} from 'redux-form';
-import Input from "../components/Input";
-import memoizeOne from "memoize-one";
-import _ from "lodash";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css'
 import {addProject, getProjectById, updateProject} from "../store/actions/projects";
-import LeftSideBar from "../components/LeftSideBar";
 
 
 class AddNewProject extends Component {
@@ -49,12 +44,12 @@ class AddNewProject extends Component {
         arr
       }
     })
-    // if (this.props.match.params.id) {
-    //   let {id} = this.props.match.params
-    //   this.props.updateProject(id, this.state.data)
-    // } else {
-    //   this.props.addProject(this.state.data)
-    // }
+    if (this.props.match.params.id) {
+      let {id} = this.props.match.params
+      this.props.updateProject(id, this.state.data)
+    } else {
+      this.props.addProject(this.state.data)
+    }
     console.log(this.state.data)
   }
 
@@ -148,7 +143,6 @@ class AddNewProject extends Component {
             <label htmlFor="images">Images</label>
           </p>
           <p>
-
             <input className="submit" type="submit" value="Add"/>
           </p>
         </form>

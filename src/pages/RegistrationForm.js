@@ -2,11 +2,9 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 // import Wrapper from "../components/Wrapper";
 // import {addUser,getUser,updateUser} from "../store/actions/users";
-import _ from "lodash";
-import memoizeOne from "memoize-one";
-import {NotificationContainer} from 'react-notifications';
 import {addUser, loginAdmin} from "../store/actions/users";
 import {Link, Redirect} from "react-router-dom";
+
 class RegisterForm extends Component {
 
     constructor(props) {

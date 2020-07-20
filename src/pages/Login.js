@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 // import {checkUser} from "../store/actions/users";
-import _ from "lodash";
-import { loginAdmin} from "../store/actions/users";
+import {loginAdmin} from "../store/actions/users";
 import {Link, Redirect} from "react-router-dom";
+
 // import {Redirect} from "react-router";
 class Login extends Component {
 

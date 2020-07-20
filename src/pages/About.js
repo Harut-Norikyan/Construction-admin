@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addAbout, getAbout, updateAbout} from "../store/actions/about";
 import {NotificationContainer, NotificationManager} from "react-notifications";
-import {Redirect} from "react-router-dom";
 
 class About extends Component {
   static propTypes = {};

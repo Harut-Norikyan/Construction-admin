@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {deleteProject, getProjects} from "../store/actions/projects";
-import {Link, Redirect} from "react-router-dom";
 import Pagination from "react-js-pagination";
-import ReactDOM from "react-dom";
-// require("bootstrap/less/bootstrap.less");
+import {MdDeleteForever, MdUpdate} from "react-icons/md";
+
 class AllProjects extends Component {
   static propTypes = {};
 
-  state={
-    activePage: 1,
+  constructor(props) {
+    super(props);
+    this.state={
+      activePage: 1,
+    }
   }
 
   componentDidMount() {
@@ -24,6 +26,7 @@ class AllProjects extends Component {
 
   render() {
     let {projects,projectCount} = this.props
+
     let{activePage} = this.state
     if (this.props.delete === "project deleted") {
       window.location.reload()
@@ -49,13 +52,20 @@ class AllProjects extends Component {
                 <td>{item.title}</td>
                 <td>
                   <a href={`/add-new-project/${item.id}`}>
-                    <button className="btn btn-info" onClick={()=>this.toAddNewProjects(item.id)}>Обновить</button>
+                    {/*<button className="btn btn-info" onClick={()=>this.toAddNewProjects(item.id)}>Обновить</button>*/}
+                    <div className="updateProject">
+                      <MdUpdate />
+                    </div>
                 </a>
                 </td>
                 <td>
-                  <button className="btn btn-danger"
-                          onClick={() => this.props.deleteProject(item.id)}>Удалить
-                  </button>
+                  <div
+                    className="deleteProject"
+                    onClick={() => this.props.deleteProject(item.id)}
+                  >
+                    <MdDeleteForever/>
+                  </div>
+
                 </td>
               </tr>
             )) : null}
@@ -64,7 +74,7 @@ class AllProjects extends Component {
           <div>
             <Pagination
               activePage={activePage}
-              totalItemsCount={projectCount}
+              totalItemsCount={projectCount?projectCount:10}
               onChange={this.handlePageChange}
             />
           </div>
